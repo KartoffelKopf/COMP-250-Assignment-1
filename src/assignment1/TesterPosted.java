@@ -10,10 +10,10 @@ public class TesterPosted {
 		
 		//  Here is an example.  
 		
-		String s1 = "1324531254343123412435125345124312543154231524312";
-		String s2 = "2";
+		String s1 = "12";
+		String s2 = "5";
 
-		int base = 6;
+		int base = 10;
 		//String s1 = "10111111111100000001010101010101010101010101010101010101010101010111010101010100110101011011101101101010110101010101";
 		//String s2 = "10101101010101010111111010110101010101101111100000001010101001010101001010101101111000001100000001101";
 		
@@ -25,10 +25,13 @@ public class TesterPosted {
 		NaturalNumber n2 = new NaturalNumber(s2, base);
 		System.out.println("n2 is    " + n2);
 		System.out.println("");
+		//System.out.println(n1.minus(n2)); 
 		      
 		//  The BigInteger class uses an 'add' method for addition, but NaturalNumber 
 		//  uses 'plus' instead, to avoid confusion with the LinkedList's 'add' method
 		//  which inserts an element.
+		
+		/*
 		
 		System.out.print("sum: big1+big2 =        (");
 		System.out.println(big1.add(big2).toString(base) + ")_" + base );  // BigInteger
@@ -56,6 +59,11 @@ public class TesterPosted {
 		System.out.print("multiply: n1*n2       = ");               // NaturalNumber
 		System.out.println(n1.times(n2));
 		System.out.println();
+			
+		*/
+			
+		System.out.println(n1.divide(n2));
+		System.out.println(n1.slowDivide(n2));
 		
 		//System.out.print("slow multiply: n1*n2  = ");               // NaturalNumber
 		//System.out.println(n1.slowTimes(n2));
@@ -65,19 +73,23 @@ public class TesterPosted {
 		System.out.println(big1.divide(big2).toString(base)  + ")_" + base);
 
 		System.out.print("divide: n1/n2         = ");                 // NaturalNumber
-	//	System.out.println(n1.divide(n2));
+		System.out.println(n1.divide(n2));
 		System.out.println();
 		
 		System.out.print("slow divide: n1/n2    = ");               // NaturalNumber
-	//	System.out.println(n1.slowDivide(n2));
+  		System.out.println(n1.slowDivide(n2));
 
-		/*   mod
+	   mod
+	 	*/
 		
 		System.out.print("mod = ");
 		System.out.println(big1.subtract(big1.divide(big2).multiply(big2)));
 		System.out.println(big1.mod(big2));
 		
-		*/
+
+		
+		System.out.println("n1 is    " + n1);
+		System.out.println("n2 is    " + n2);
 	}
 	
 }

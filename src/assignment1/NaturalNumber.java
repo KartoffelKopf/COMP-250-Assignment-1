@@ -163,12 +163,15 @@ public class NaturalNumber  {
 		
 		//  ---------  BEGIN SOLUTION (plus)  ----------
 		
-		int carry = 0;
+		int carry = 0; //initializing a carry value
 				
 		for (int k = 0; k < firstClone.coefficients.size(); k++) {
-					
+			
+			//simple addition
 			sum.coefficients.add(firstClone.coefficients.get(k) + secondClone.coefficients.get(k) + carry);
 			
+			//this makes sure that each coefficient is less than the base
+			//and determines the value of the carry
 			if (sum.coefficients.get(k)>= sum.getBase()) {
 				
 				carry = sum.coefficients.get(k) / sum.getBase();
@@ -179,10 +182,13 @@ public class NaturalNumber  {
 				carry = 0;
 			}
 		}
-		if (carry == 1) {
+		
+		//this adds the carry if it is not 0
+		if (carry >= 1) {
 			
 			sum.coefficients.add(carry);
 		}
+		
 		//  ---------  END SOLUTION (plus)  ----------
 		
 		return sum;		
@@ -247,7 +253,8 @@ public class NaturalNumber  {
 				
 			}
 			
-			//the plus() I've implemented can handle the larger-than-base coefficients in product.plus(temp), and will return the correct sum
+			//the plus() I've implemented can handle the larger-than-base coefficients in product.plus(temp),
+			//and will return the correct sum
 			
 			product = product.plus(temp);
 			temp.coefficients.clear();		
@@ -319,13 +326,13 @@ public class NaturalNumber  {
 		
 		for(int k = second.coefficients.size() - 1; k >= 0 ; k--){
 			
-			//the below if function performs all of the borrowing
+			//this if loop performs all of the borrowing
 			
 			if(first.coefficients.get(k) < second.coefficients.get(k)){
 				
 				int extraBorrows = 0; 
 				
-				//counting the number of "columns" over we have to borrow from
+				//counting the number of elements over we have to borrow from
 				
 				while(difference.coefficients.get(extraBorrows) == 0){
 					
@@ -412,6 +419,41 @@ public class NaturalNumber  {
 		
 		//  --------------- BEGIN SOLUTION (divide) --------------------------
 		
+		NaturalNumber tempDividend = new NaturalNumber(this.base);
+		NaturalNumber tempZero = new NaturalNumber(this.base);
+		
+		for(int k = this.coefficients.size() - 1; k >= 0; k--) {
+			
+			tempDividend.coefficients.addFirst(this.coefficients.get(k));
+			
+			//this if statement exists because slowDivide can't take 00 as input
+			if(tempDividend.coefficients.getLast() == 0) {
+				
+				tempDividend.coefficients.removeLast();
+			}
+			
+			tempZero = tempDividend.slowDivide(divisor);
+			
+			if(tempZero.coefficients.get(0) == 0) {
+				
+				quotient.coefficients.addFirst(tempZero.coefficients.get(0));
+			}	
+			else {
+				
+				quotient.coefficients.addFirst(tempZero.coefficients.get(0));
+			
+				for(int j = quotient.coefficients.getFirst(); j > 0 ; j--) {
+				
+					tempDividend = tempDividend.minus(divisor);
+				}
+			}
+		}
+		
+		//this is the code from minus that was given to chop off zeroes
+		while ((quotient.coefficients.size() > 1) & 
+				(quotient.coefficients.getLast().intValue() == 0)){
+			quotient.coefficients.removeLast();
+		}
 		
 		// -------------  END SOLUTION  (divide)  ---------------------
 
